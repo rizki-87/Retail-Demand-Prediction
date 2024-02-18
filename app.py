@@ -91,7 +91,7 @@ def model():
     three_months_ago_sales = st.number_input('Sales 3 Months Ago', min_value=0.0, format='%f')
 
     # Load your trained model
-    # model = joblib.load('path_to_your_trained_model.pkl')  # Adjust the path to your trained model
+    model = joblib.load('finalized_model.joblib')  # Adjust the path to your trained model
 
     # Predict button
     if st.button('Predict Sales'):
