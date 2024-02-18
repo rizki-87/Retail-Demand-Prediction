@@ -21,6 +21,10 @@ def data_visualization():
 
     # Load your data
     df = pd.read_csv('mock_kaggle.csv')  # Adjust the path to your dataset
+
+    # Change the column name 'data' to 'date', 'venda' to 'sales', 'estoque' to 'inventory', and 'preco' to 'price'.
+    df.rename(columns={'data': 'date', 'venda': 'sales', 'estoque': 'inventory', 'preco': 'price'}, inplace=True)
+    df.info()
     
 
    # Time Series Plot of Sales
