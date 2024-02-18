@@ -8,12 +8,6 @@ import joblib
 # Set page config
 st.set_page_config(page_title='Retail Demand Prediction', layout='wide')
 
-# Function to load the trained model
-@st.cache(allow_output_mutation=True)
-def load_model():
-    loaded_model = joblib.load('finalized_model.joblib')  # Adjust the path to your trained model
-    return loaded_model
-
 # Home page
 def home():
     st.title('Retail Demand Prediction')
