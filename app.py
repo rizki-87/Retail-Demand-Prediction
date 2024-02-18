@@ -81,16 +81,16 @@ def data_visualization():
 
 def model():
     st.title('Model')
-    st.write('Gunakan model Anda di sini untuk membuat prediksi.')
-    # Contoh input dan prediksi:
-    last_month_sales = st.number_input('Penjualan Bulan Lalu', min_value=0)
-    two_months_ago_sales = st.number_input('Penjualan 2 Bulan Lalu', min_value=0)
-    three_months_ago_sales = st.number_input('Penjualan 3 Bulan Lalu', min_value=0)
+    st.write('Use the model here to make predictions.')
+    # Example for input and prediction:
+    last_month_sales = st.number_input('Last Month's Sales', min_value=0)
+    two_months_ago_sales = st.number_input('Sales 2 Months Ago', min_value=0)
+    three_months_ago_sales = st.number_input('Sales 3 months ago', min_value=0)
     if st.button('Predict'):
    # Assuming the model is loaded using joblib
           model = joblib.load('finalized_model.joblib')  # Adjust path as necessary
           prediction = model.predict([[last_month_sales, two_months_ago_sales, three_months_ago_sales]])
-          st.write(f'Prediksi Penjualan: {prediction[0]}')
+          st.write(f'Demand Forecast: {prediction[0]}')
 
 # Sidebar navigation
 st.sidebar.title('Navigation')
