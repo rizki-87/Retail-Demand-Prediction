@@ -83,14 +83,14 @@ def model():
     st.title('Model')
     st.write('Gunakan model Anda di sini untuk membuat prediksi.')
     # Contoh input dan prediksi:
-    # last_month_sales = st.number_input('Penjualan Bulan Lalu', min_value=0)
-    # two_months_ago_sales = st.number_input('Penjualan 2 Bulan Lalu', min_value=0)
-    # three_months_ago_sales = st.number_input('Penjualan 3 Bulan Lalu', min_value=0)
-    # if st.button('Predict'):
-    #     # Assuming the model is loaded using joblib
-    #     model = joblib.load('path_to_your_saved_model.pkl')  # Adjust path as necessary
-    #     prediction = model.predict([[last_month_sales, two_months_ago_sales, three_months_ago_sales]])
-    #     st.write(f'Prediksi Penjualan: {prediction[0]}')
+    last_month_sales = st.number_input('Penjualan Bulan Lalu', min_value=0)
+    two_months_ago_sales = st.number_input('Penjualan 2 Bulan Lalu', min_value=0)
+    three_months_ago_sales = st.number_input('Penjualan 3 Bulan Lalu', min_value=0)
+    if st.button('Predict'):
+   # Assuming the model is loaded using joblib
+          model = joblib.load('finalized_model.joblib')  # Adjust path as necessary
+          prediction = model.predict([[last_month_sales, two_months_ago_sales, three_months_ago_sales]])
+          st.write(f'Prediksi Penjualan: {prediction[0]}')
 
 # Sidebar navigation
 st.sidebar.title('Navigation')
