@@ -85,41 +85,26 @@ def data_visualization():
     st.write('**Insight:** Patterns in the scatter plot between price and sales could indicate price sensitivity.')
     st.write('**Action:** Test different pricing to see its effect on sales and use this information to formulate an optimal pricing strategy.')
 
-# Model Prediction page
-def model_page():
-    st.title('Predict Retail Sales')
-    st.write('## Model Prediction')
-    st.write('Enter the sales data for the past three months to predict the sales for the upcoming month.')
-    
-    # User inputs
-    last_month_sales = st.number_input('Sales Last Month', min_value=0.0, format='%f')
-    two_months_ago_sales = st.number_input('Sales 2 Months Ago', min_value=0.0, format='%f')
-    three_months_ago_sales = st.number_input('Sales 3 Months Ago', min_value=0.0, format='%f')
-
-    # Load the model
-    model = load_model()
-
-    # Button to predict
-    if st.button('Predict Sales'):
-        # Create a DataFrame to hold the user input
-        input_data = pd.DataFrame({
-            'Sale_LastMonth': [last_month_sales],
-            'Sale_2Monthsback': [two_months_ago_sales],
-            'Sale_3Monthsback': [three_months_ago_sales]
-        })
-
-        # Predict using the loaded model
-        prediction = model.predict(input_data)
-        st.write(f'Predicted Sales: {prediction[0]}')
+def model():
+    st.title('Model')
+    st.write('Gunakan model Anda di sini untuk membuat prediksi.')
+    # Contoh input dan prediksi:
+    # last_month_sales = st.number_input('Penjualan Bulan Lalu', min_value=0)
+    # two_months_ago_sales = st.number_input('Penjualan 2 Bulan Lalu', min_value=0)
+    # three_months_ago_sales = st.number_input('Penjualan 3 Bulan Lalu', min_value=0)
+    # if st.button('Predict'):
+    #     # Assuming the model is loaded using joblib
+    #     model = joblib.load('path_to_your_saved_model.pkl')  # Adjust path as necessary
+    #     prediction = model.predict([[last_month_sales, two_months_ago_sales, three_months_ago_sales]])
+    #     st.write(f'Prediksi Penjualan: {prediction[0]}')
 
 # Sidebar navigation
 st.sidebar.title('Navigation')
-options = st.sidebar.radio('Select a page:', ['Home', 'Data Visualization and Storytelling', 'Predict Sales'])
+options = st.sidebar.radio('Select a page:', ['Home', 'Data Visualization and Storytelling', 'Model'])
 
-# Conditional to render the selected page
 if options == 'Home':
     home()
 elif options == 'Data Visualization and Storytelling':
     data_visualization()
-elif options == 'Predict Sales':
-    model_page()
+elif options == 'Model':
+    model()
