@@ -79,14 +79,13 @@ def data_visualization():
     st.write('**Insight:** Patterns in the scatter plot between price and sales could indicate price sensitivity.')
     st.write('**Action:** Test different pricing to see its effect on sales and use this information to formulate an optimal pricing strategy.')
 
-# Model Prediction page
 # Load your trained model
 @st.cache(allow_output_mutation=True)
 def load_model():
     loaded_model = joblib.load('finalized_model.joblib')  # Adjust the path to your trained model
     return loaded_model
 
-# Fungsi untuk halaman model di Streamlit
+# Model Prediction page
 def model_page():
     st.title('Predict Retail Sales')
     st.write('## Model Prediction')
@@ -96,21 +95,26 @@ def model_page():
     last_month_sales = st.number_input('Sales Last Month', min_value=0.0, format='%f')
     two_months_ago_sales = st.number_input('Sales 2 Months Ago', min_value=0.0, format='%f')
     three_months_ago_sales = st.number_input('Sales 3 Months Ago', min_value=0.0, format='%f')
-    
+
     # Load the model
     model = load_model()
 
-    # Tombol prediksi
+    # Button to predict
     if st.button('Predict Sales'):
-        # Proses input pengguna
-        processed_input = pd.DataFrame({
+        # Create a DataFrame to hold the user input
+        input_data = pd.DataFrame({
             'Sale_LastMonth': [last_month_sales],
             'Sale_2Monthsback': [two_months_ago_sales],
             'Sale_3Monthsback': [three_months_ago_sales]
         })
 
-        # Prediksi menggunakan model yang telah disimpan
-        prediction = model.predict(processed_input)
+        # Ensure that the input DataFrame is in the correct form
+        # Note: We are directly using the lag features here as they are provided by the user
+        # The additional transformations in the feature engineering process are not applicable here
+        # because we are not working with a series of data points that would be grouped by date
+
+        # Predict using the loaded model
+        prediction = model.predict(input_data)
         st.write(f'Predicted Sales: {prediction[0]}')
 
 # Navigation
