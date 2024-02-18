@@ -21,12 +21,12 @@ def data_visualization():
 
     # Load your data
     df = pd.read_csv('mock_kaggle.csv')  # Adjust the path to your dataset
-    df_eda = df.copy()
+    
 
-    # Time Series Plot of Sales
+   # Time Series Plot of Sales
     st.write('### Time Series Plot of Sales')
     fig1, ax1 = plt.subplots()
-    df_eda['sales'].plot(figsize=(14, 7), ax=ax1)
+    df['sales'].plot(figsize=(14, 7), ax=ax1)
     ax1.set_title('Time Series Plot of Sales')
     ax1.set_xlabel('Date')
     ax1.set_ylabel('Sales')
@@ -37,8 +37,8 @@ def data_visualization():
     # Rolling Mean and Standard Deviation of Sales
     st.write('### Rolling Mean and Standard Deviation of Sales')
     fig2, ax2 = plt.subplots()
-    df_eda['sales'].rolling(window=30).mean().plot(label='30 Day Rolling Mean', ax=ax2)
-    df_eda['sales'].rolling(window=30).std().plot(label='30 Day Rolling Std', ax=ax2)
+    df['sales'].rolling(window=30).mean().plot(label='30 Day Rolling Mean', ax=ax2)
+    df['sales'].rolling(window=30).std().plot(label='30 Day Rolling Std', ax=ax2)
     ax2.legend()
     ax2.set_title('Rolling Mean and Standard Deviation of Sales')
     st.pyplot(fig2)
@@ -48,7 +48,7 @@ def data_visualization():
     # Sales Distribution
     st.write('### Sales Distribution')
     fig3, ax3 = plt.subplots()
-    sns.histplot(df_eda['sales'], kde=True, ax=ax3)
+    sns.histplot(df['sales'], kde=True, ax=ax3)
     ax3.set_title('Sales Distribution')
     st.pyplot(fig3)
     st.write('**Insight:** The shape of the sales distribution can indicate a high concentration of transactions within certain price or volume ranges.')
@@ -57,7 +57,7 @@ def data_visualization():
     # Correlation Heatmap
     st.write('### Correlation Heatmap')
     fig4, ax4 = plt.subplots()
-    correlation_matrix = df_eda[['sales', 'inventory', 'price']].corr()
+    correlation_matrix = df[['sales', 'inventory', 'price']].corr()
     sns.heatmap(correlation_matrix, annot=True, ax=ax4)
     ax4.set_title('Correlation Heatmap')
     st.pyplot(fig4)
@@ -67,7 +67,7 @@ def data_visualization():
     # Scatter Plot of Price vs Sales
     st.write('### Scatter Plot of Price vs Sales')
     fig5, ax5 = plt.subplots()
-    ax5.scatter(df_eda['price'], df_eda['sales'])
+    ax5.scatter(df['price'], df['sales'])
     ax5.set_title('Scatter Plot of Price vs Sales')
     ax5.set_xlabel('Price')
     ax5.set_ylabel('Sales')
