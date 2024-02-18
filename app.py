@@ -83,7 +83,7 @@ def model():
     st.title('Model')
     st.write('Use the model here to make predictions.')
     # Example for input and prediction:
-    last_month_sales = st.number_input('Last Month's Sales', min_value=0)
+    last_month_sales = st.number_input("Last Month's Sales", min_value=0)
     two_months_ago_sales = st.number_input('Sales 2 Months Ago', min_value=0)
     three_months_ago_sales = st.number_input('Sales 3 months ago', min_value=0)
     if st.button('Predict'):
