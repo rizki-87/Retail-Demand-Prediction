@@ -82,7 +82,7 @@ def data_visualization():
 
 def model():
     st.title('Model')
-    st.write('Use the model here to make predictions. Use the model here to make predictions. **For example:** You want to predict demand for the period February 2024, enter sales data, in November 2023 (Sales 3 months ago), December 2023 (Sales 2 Months Ago), & January 2024 (Last Month's Sales).')
+    st.write("Use the model here to make predictions. Use the model here to make predictions. **For example:** You want to predict demand for the period February 2024, enter sales data, in November 2023 (Sales 3 months ago), December 2023 (Sales 2 Months Ago), & January 2024 (Last Month's Sales).")
     # Example for input and prediction:
     last_month_sales = st.number_input("Last Month's Sales", min_value=0)
     two_months_ago_sales = st.number_input('Sales 2 Months Ago', min_value=0)
