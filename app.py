@@ -21,6 +21,7 @@ def data_visualization():
 
     # Load your data
     df = pd.read_csv('mock_kaggle.csv')  # Adjust the path to your dataset
+    df_eda = df.copy()
 
     # Time Series Plot of Sales
     st.write('### Time Series Plot of Sales')
