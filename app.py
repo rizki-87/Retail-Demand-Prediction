@@ -11,7 +11,7 @@ st.set_page_config(page_title='Retail Demand Prediction', layout='wide')
 # Home page
 def home():
     st.title('Retail Demand Prediction')
-    st.markdown('#by Rizki Pria Aditama')
+    st.markdown('**by Rizki Pria Aditama')
     st.write('## Introduction')
     st.write('This Streamlit app is designed to predict retail demand based on historical sales data. The model is built to assist retailers in forecasting future sales and making informed inventory decisions.')
 
