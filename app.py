@@ -85,19 +85,64 @@ def model():
     st.write('## Model Prediction')
     st.write('Enter the sales data for the past three months to predict the sales for the upcoming month.')
 
-    # User input
-    last_month_sales = st.number_input('Sales Last Month', min_value=0.0, format='%f')
-    two_months_ago_sales = st.number_input('Sales 2 Months Ago', min_value=0.0, format='%f')
-    three_months_ago_sales = st.number_input('Sales 3 Months Ago', min_value=0.0, format='%f')
+    # # User input
+    # last_month_sales = st.number_input('Sales Last Month', min_value=0.0, format='%f')
+    # two_months_ago_sales = st.number_input('Sales 2 Months Ago', min_value=0.0, format='%f')
+    # three_months_ago_sales = st.number_input('Sales 3 Months Ago', min_value=0.0, format='%f')
 
     # Load your trained model
     model = joblib.load('finalized_model.joblib')  # Adjust the path to your trained model
 
-    # Predict button
+   model = joblib.load('model.joblib')
+
+def process_input_data(last_month_sales, two_months_ago_sales, three_months_ago_sales):
+    # Buat DataFrame dari input pengguna
+    input_data = pd.DataFrame({
+        'sales': [last_month_sales, two_months_ago_sales, three_months_ago_sales]
+    })
+
+    # Buat fitur lagged sesuai dengan proses Feature Engineering
+    input_data['Sale_LastMonth'] = input_data['sales'].shift(1)
+    input_data['Sale_2Monthsback'] = input_data['sales'].shift(2)
+    input_data['Sale_3Monthsback'] = input_data['sales'].shift(3)
+
+    # Drop baris pertama yang akan memiliki nilai NaN karena pergeseran
+    input_data = input_data.dropna().reset_index(drop=True)
+
+    return input_data
+
+def predict_sales(last_month_sales, two_months_ago_sales, three_months_ago_sales):
+    # Proses input pengguna
+    processed_input = process_input_data(last_month_sales, two_months_ago_sales, three_months_ago_sales)
+    
+    # Pastikan bahwa kita memiliki cukup baris data untuk membuat prediksi
+    if processed_input.shape[0] > 0:
+        # Prediksi menggunakan model yang telah disimpan
+        prediction = model.predict(processed_input)
+        return prediction
+    else:
+        # Jika tidak cukup data, kembalikan None
+        return None
+
+# Fungsi untuk halaman model di Streamlit
+def model_page():
+    st.title('Predict Retail Sales')
+    st.write('## Input Sales Data')
+    
+    # User input
+    last_month_sales = st.number_input('Sales Last Month', min_value=0.0, format='%f')
+    two_months_ago_sales = st.number_input('Sales 2 Months Ago', min_value=0.0, format='%f')
+    three_months_ago_sales = st.number_input('Sales 3 Months Ago', min_value=0.0, format='%f')
+    
+    # Tombol prediksi
     if st.button('Predict Sales'):
-        # prediction = model.predict([[last_month_sales, two_months_ago_sales, three_months_ago_sales]])  # Use your model for prediction
-        # st.write(f'Predicted Sales: {prediction[0]}')
-        st.write('Predicted Sales: [Your prediction here]')  # Placeholder for actual prediction
+        # Panggil fungsi prediksi
+        prediction = predict_sales(last_month_sales, two_months_ago_sales, three_months_ago_sales)
+        
+        if prediction is not None:
+            st.write(f'Predicted Sales: {prediction[0]}')
+        else:
+            st.error('Not enough data to make a prediction. Please input at least 3 months of sales data.')
 
 # Navigation
 st.sidebar.title('Navigation')
