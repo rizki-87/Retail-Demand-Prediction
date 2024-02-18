@@ -8,6 +8,12 @@ import joblib
 # Set page config
 st.set_page_config(page_title='Retail Demand Prediction', layout='wide')
 
+# Function to load the trained model
+@st.cache(allow_output_mutation=True)
+def load_model():
+    loaded_model = joblib.load('finalized_model.joblib')  # Adjust the path to your trained model
+    return loaded_model
+
 # Home page
 def home():
     st.title('Retail Demand Prediction')
@@ -79,19 +85,13 @@ def data_visualization():
     st.write('**Insight:** Patterns in the scatter plot between price and sales could indicate price sensitivity.')
     st.write('**Action:** Test different pricing to see its effect on sales and use this information to formulate an optimal pricing strategy.')
 
-# Load your trained model
-@st.cache(allow_output_mutation=True)
-def load_model():
-    loaded_model = joblib.load('finalized_model.joblib')  # Adjust the path to your trained model
-    return loaded_model
-
 # Model Prediction page
 def model_page():
     st.title('Predict Retail Sales')
     st.write('## Model Prediction')
     st.write('Enter the sales data for the past three months to predict the sales for the upcoming month.')
     
-    # User input
+    # User inputs
     last_month_sales = st.number_input('Sales Last Month', min_value=0.0, format='%f')
     two_months_ago_sales = st.number_input('Sales 2 Months Ago', min_value=0.0, format='%f')
     three_months_ago_sales = st.number_input('Sales 3 Months Ago', min_value=0.0, format='%f')
@@ -108,19 +108,15 @@ def model_page():
             'Sale_3Monthsback': [three_months_ago_sales]
         })
 
-        # Ensure that the input DataFrame is in the correct form
-        # Note: We are directly using the lag features here as they are provided by the user
-        # The additional transformations in the feature engineering process are not applicable here
-        # because we are not working with a series of data points that would be grouped by date
-
         # Predict using the loaded model
         prediction = model.predict(input_data)
         st.write(f'Predicted Sales: {prediction[0]}')
 
-# Navigation
+# Sidebar navigation
 st.sidebar.title('Navigation')
 options = st.sidebar.radio('Select a page:', ['Home', 'Data Visualization and Storytelling', 'Predict Sales'])
 
+# Conditional to render the selected page
 if options == 'Home':
     home()
 elif options == 'Data Visualization and Storytelling':
