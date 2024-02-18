@@ -84,16 +84,15 @@ def model():
     st.title('Predict Retail Sales')
     st.write('## Model Prediction')
     st.write('Enter the sales data for the past three months to predict the sales for the upcoming month.')
-
+def load_model():
+    model = joblib.load('finalized_model.joblib')  # Adjust the path to your trained model
+    return model
     # # User input
     # last_month_sales = st.number_input('Sales Last Month', min_value=0.0, format='%f')
     # two_months_ago_sales = st.number_input('Sales 2 Months Ago', min_value=0.0, format='%f')
     # three_months_ago_sales = st.number_input('Sales 3 Months Ago', min_value=0.0, format='%f')
 
-    # Load your trained model
-    model = joblib.load('finalized_model.joblib')  # Adjust the path to your trained model
-
-   model = joblib.load('model.joblib')
+   
 
 def process_input_data(last_month_sales, two_months_ago_sales, three_months_ago_sales):
     # Buat DataFrame dari input pengguna
