@@ -33,10 +33,15 @@ def model():
     st.title('Model')
     st.write("Use the model here to make predictions. **For example:** You want to predict demand for the period February 2024, enter sales data, in November 2023 (Sales 3 months ago), December 2023 (Sales 2 Months Ago), & January 2024 (Last Month's Sales).")
 
-    # User input
-    last_month_sales = st.number_input("Last Month's Sales", min_value=0)
-    two_months_ago_sales = st.number_input('Sales 2 Months Ago', min_value=0)
-    three_months_ago_sales = st.number_input('Sales 3 Months Ago', min_value=0)
+    # Buat form untuk mengelompokkan elemen input dan tombol
+    with st.form(key="prediction_form"):
+        # User input
+        last_month_sales = st.number_input("Last Month's Sales", min_value=0)
+        two_months_ago_sales = st.number_input('Sales 2 Months Ago', min_value=0)
+        three_months_ago_sales = st.number_input('Sales 3 Months Ago', min_value=0)
+
+        # Tombol predict dalam form
+        submit_button = st.form_submit_button(label='Predict')
 
     # Load the trained model with error handling
     try:
@@ -48,11 +53,10 @@ def model():
         st.error(f"An error occurred while loading the model: {e}")
         return
 
-    # Prediction
-if st.button('Predict'):
-    prediction = model.predict([[inventory_input, price_input, last_month_sales_input]])
-    st.write(f'Demand Forecast: {prediction[0]}')
-
+    # Prediction setelah tombol diklik
+    if submit_button:
+        prediction = model.predict([[last_month_sales, two_months_ago_sales, three_months_ago_sales]])
+        st.write(f'Demand Forecast: {prediction[0]}')
 
 # Sidebar navigation
 st.sidebar.title('Navigation')
