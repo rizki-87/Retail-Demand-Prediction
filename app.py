@@ -49,9 +49,10 @@ def model():
         return
 
     # Prediction
-    if st.button('Predict'):
-        prediction = model.predict([[last_month_sales, two_months_ago_sales, three_months_ago_sales]])
-        st.write(f'Demand Forecast: {prediction[0]}')
+if st.button('Predict'):
+    prediction = model.predict([[inventory_input, price_input, last_month_sales_input]])
+    st.write(f'Demand Forecast: {prediction[0]}")
+
 
 # Sidebar navigation
 st.sidebar.title('Navigation')
