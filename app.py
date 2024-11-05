@@ -25,6 +25,30 @@ def data_visualization():
     # Data preparation steps
     df.rename(columns={'data': 'date', 'venda': 'sales', 'estoque': 'inventory', 'preco': 'price'}, inplace=True)
     
+    # Example plot: Time Series Plot of Sales
+    st.write('### Time Series Plot of Sales')
+    fig1, ax1 = plt.subplots()
+    df['sales'].plot(figsize=(14, 7), ax=ax1)
+    ax1.set_title('Time Series Plot of Sales')
+    ax1.set_xlabel('Date')
+    ax1.set_ylabel('Sales')
+    st.pyplot(fig1)
+
+    # Rolling Mean and Standard Deviation of Sales
+    st.write('### Rolling Mean and Standard Deviation of Sales')
+    fig2, ax2 = plt.subplots()
+    df['sales'].rolling(window=30).mean().plot(label='30 Day Rolling Mean', ax=ax2)
+    df['sales'].rolling(window=30).std().plot(label='30 Day Rolling Std', ax=ax2)
+    ax2.legend()
+    ax2.set_title('Rolling Mean and Standard Deviation of Sales')
+    st.pyplot(fig2)
+
+    # Load your data
+    df = pd.read_csv('mock_kaggle.csv')  # Adjust the path to your dataset
+
+    # Data preparation steps
+    df.rename(columns={'data': 'date', 'venda': 'sales', 'estoque': 'inventory', 'preco': 'price'}, inplace=True)
+    
     # Various plots and analysis
     # (Keep this part the same as your existing code)
 
